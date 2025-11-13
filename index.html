@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleaning Myth: Baking Soda & Vinegar</title>
+    <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Roboto', sans-serif; background-color: #222; color: white; }
+        
+        /* Slide Container */
+        .slide-container {
+            width: 100vw; height: 100vh; position: relative;
+        }
+
+        /* Individual Slides */
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px; box-sizing: border-box;
+            background-color: #222;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateX(100%); /* Start off-screen right */
+        }
+        
+        .slide.active { transform: translateX(0); }
+        .slide.prev { transform: translateX(-100%); }
+
+        /* Typography */
+        h1 { font-family: 'Oswald', sans-serif; font-size: 4rem; margin: 0 0 20px 0; text-transform: uppercase; color: #FFD700; text-align: center; }
+        h2 { font-family: 'Oswald', sans-serif; font-size: 3rem; color: #4db8ff; margin-bottom: 30px; text-transform: uppercase; }
+        
+        p { font-size: 2rem; margin: 10px 0; text-align: center; max-width: 800px; line-height: 1.4; }
+        
+        /* Visual Elements */
+        .equation {
+            display: flex; align-items: center; gap: 20px; font-size: 2.5rem; font-weight: bold; margin: 40px 0;
+            background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;
+        }
+        .plus { color: #ff4d4d; }
+        .arrow { color: #FFD700; }
+        
+        .visual-box {
+            width: 600px; height: 300px; background: #333; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: #888; border: 2px dashed #555;
+            margin-top: 20px;
+        }
+
+        /* Comparison List */
+        .vs-list { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; width: 80%; max-width: 1000px; }
+        .vs-item { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 10px; text-align: center; }
+        .vs-item h3 { color: #FFD700; margin-top: 0; font-size: 2rem; }
+        .vs-item p { font-size: 1.5rem; }
+
+        /* Navigation */
+        .nav-btn {
+            position: fixed; bottom: 30px; background: transparent; border: 2px solid rgba(255,255,255,0.3);
+            color: white; width: 60px; height: 60px; border-radius: 50%;
+            font-size: 24px; cursor: pointer; transition: all 0.3s; z-index: 100;
+        }
+        .nav-btn:hover { background: white; color: black; border-color: white; }
+        #prev { left: 40px; }
+        #next { right: 40px; }
+
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    
+    <!-- SLIDE 1: Title --><div class="slide active" id="s1">
+        <h1>Cleaning Myth:</h1>
+        <p>Baking Soda + Vinegar = Magic?</p>
+        <div class="visual-box">
+            
+        </div>
+    </div>
+
+    <!-- SLIDE 2: The Chemistry --><div class="slide" id="s2">
+        <h2>The Science</h2>
+        <div class="equation">
+            <span style="color:#ff9999">Baking Soda (Base)</span>
+            <span class="plus">+</span>
+            <span style="color:#99ccff">Vinegar (Acid)</span>
+            <span class="arrow">→</span>
+            <span style="color:#ccc">Water + Gas</span>
+        </div>
+        <p>They <strong>fight</strong> each other.</p>
+        <p>They "cancel out" their power. This is "Neutralization."</p>
+    </div>
+
+    <!-- SLIDE 3: The Result --><div class="slide" id="s3">
+        <h2>What Happens?</h2>
+        <div class="vs-list">
+            <div class="vs-item">
+                <h3>The Bubbles?</h3>
+                <p>Just CO2 Gas.<br>(Like soda pop)</p>
+            </div>
+            <div class="vs-item">
+                <h3>The Liquid?</h3>
+                <p>Just Salty Water.<br>(No strong cleaning)</p>
+            </div>
+        </div>
+        <p style="margin-top:40px; color: #ff4d4d;">Mixing them makes them weak!</p>
+    </div>
+
+    <!-- SLIDE 4: Conclusion --><div class="slide" id="s4">
+        <h2>The Cleaning Secret</h2>
+        <p>Use them <strong>SEPARATELY</strong>!</p>
+        <div class="vs-list">
+            <div class="vs-item" style="border: 1px solid #4db8ff">
+                <h3>Baking Soda</h3>
+                <p>Good for Scrubbing!</p>
+            </div>
+            <div class="vs-item" style="border: 1px solid #ff9999">
+                <h3>Vinegar</h3>
+                <p>Good for Killing Germs!</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Controls --><button class="nav-btn" id="prev">❮</button>
+<button class="nav-btn" id="next">❯</button>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active', 'prev');
+            if (i === index) slide.classList.add('active');
+            else if (i < index) slide.classList.add('prev');
+        });
+    }
+
+    document.getElementById('next').onclick = () => {
+        if (current < slides.length - 1) { current++; showSlide(current); }
+    };
+    document.getElementById('prev').onclick = () => {
+        if (current > 0) { current--; showSlide(current); }
+    };
+    
+    document.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowRight') document.getElementById('next').click();
+        if(e.key === 'ArrowLeft') document.getElementById('prev').click();
+    });
+</script>
+
+</body>
+</html>
